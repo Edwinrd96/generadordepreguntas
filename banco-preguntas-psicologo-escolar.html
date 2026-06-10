@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador Oficial – Banco de Preguntas Psicólogo Escolar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@600;700;800&display=swap');
+
+  :root {
+    --azul-estado: #003876;
+    --azul-medio: #1a5fa8;
+    --azul-claro: #2d7dd2;
+    --rojo-bandera: #c8102e;
+    --dorado: #d4a017;
+    --gris-fondo: #f4f6fb;
+    --gris-borde: #dde3ef;
+    --gris-texto: #4a5568;
+    --blanco: #ffffff;
+    --verde-ok: #1a7a4a;
+    --verde-claro: #e8f5ee;
+    --rojo-error: #c0392b;
+    --rojo-claro: #fdecea;
+    --shadow-card: 0 2px 12px rgba(0,56,118,0.10);
+    --shadow-hover: 0 6px 24px rgba(0,56,118,0.18);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gris-fondo);
+    color: #1a202c;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--azul-estado) 0%, var(--azul-medio) 60%, var(--azul-claro) 100%);
+    color: var(--blanco);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 16px rgba(0,56,118,0.30);
+  }
+
+  .header-stripe {
+    height: 5px;
+    background: linear-gradient(90deg, var(--azul-estado) 33%, var(--dorado) 33% 66%, var(--rojo-bandera) 66%);
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header-escudo {
+    width: 52px;
+    height: 52px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.30);
+  }
+
+  .header-text h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .header-text p {
+    font-size: 0.72rem;
+    opacity: 0.80;
+    margin-top: 2px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .header-badge {
+    margin-left: auto;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.30);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* ── PANEL CONTROL ── */
+  .panel-control {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    position: sticky;
+    top: 88px;
+  }
+
+  .panel-header {
+    background: var(--azul-estado);
+    color: var(--blanco);
+    padding: 16px 20px;
+  }
+
+  .panel-header h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--azul-estado);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 7px;
+  }
+
+  .field-group select,
+  .field-group input[type="number"],
+  .field-group input[type="text"] {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #1a202c;
+    background: var(--gris-fondo);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .field-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23003876' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 34px;
+  }
+
+  .field-group select:focus,
+  .field-group input:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 3px rgba(45,125,210,0.12);
+  }
+
+  .btn-generar {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--azul-estado), var(--azul-claro));
+    color: var(--blanco);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-generar:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,56,118,0.35);
+  }
+
+  .btn-generar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .btn-exportar {
+    width: 100%;
+    padding: 10px;
+    background: var(--blanco);
+    color: var(--azul-estado);
+    border: 2px solid var(--azul-estado);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 4px;
+  }
+
+  .btn-exportar:hover:not(:disabled) {
+    background: var(--azul-estado);
+    color: var(--blanco);
+  }
+
+  .btn-exportar:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Stats */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 20px 16px;
+  }
+
+  .stat-item {
+    background: var(--gris-fondo);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid var(--gris-borde);
+  }
+
+  .stat-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--azul-estado);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    color: var(--gris-texto);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  /* ── CONTENT AREA ── */
+  .content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── STATUS ── */
+  .status-msg {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.88rem;
+    color: var(--gris-texto);
+    border-left: 4px solid var(--gris-borde);
+  }
+
+  .status-msg.loading {
+    border-left-color: var(--azul-claro);
+    color: var(--azul-estado);
+  }
+
+  .status-msg.success {
+    border-left-color: var(--verde-ok);
+    background: var(--verde-claro);
+    color: var(--verde-ok);
+  }
+
+  .status-msg.error {
+    border-left-color: var(--rojo-error);
+    background: var(--rojo-claro);
+    color: var(--rojo-error);
+  }
+
+  .spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(0,56,118,0.15);
+    border-top-color: var(--azul-claro);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── QUESTION CARD ── */
+  .pregunta-card {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+    border: 1px solid var(--gris-borde);
+  }
+
+  .pregunta-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  .card-head {
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--azul-estado) 0%, var(--azul-medio) 100%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .card-id {
+    background: rgba(255,255,255,0.20);
+    color: var(--blanco);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.30);
+    flex-shrink: 0;
+  }
+
+  .card-cat {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.12);
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .card-dif {
+    margin-left: auto;
+    font-size: 0.70rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(212,160,23,0.25);
+    color: #ffe08a;
+    border: 1px solid rgba(212,160,23,0.40);
+  }
+
+  .card-body {
+    padding: 20px 22px;
+  }
+
+  .pregunta-texto {
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: #1a202c;
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+
+  .opciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 18px;
+  }
+
+  .opcion-item {
+    display: flex;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gris-borde);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--gris-texto);
+    cursor: pointer;
+    transition: all 0.18s;
+    align-items: flex-start;
+  }
+
+  .opcion-item:hover {
+    border-color: var(--azul-claro);
+    background: #f0f6ff;
+    color: var(--azul-estado);
+  }
+
+  .opcion-item.correcta {
+    border-color: var(--verde-ok);
+    background: var(--verde-claro);
+    color: var(--verde-ok);
+    font-weight: 600;
+  }
+
+  .opcion-item.seleccionada-ok {
+    border-color: var(--verde-ok);
+    background: var(--verde-claro);
+  }
+
+  .opcion-item.seleccionada-mal {
+    border-color: var(--rojo-error);
+    background: var(--rojo-claro);
+    color: var(--rojo-error);
+  }
+
+  .opcion-letra {
+    font-weight: 700;
+    color: var(--azul-medio);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.82rem;
+    background: var(--gris-fondo);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .opcion-item.correcta .opcion-letra,
+  .opcion-item.seleccionada-ok .opcion-letra {
+    background: var(--verde-ok);
+    color: var(--blanco);
+  }
+
+  .opcion-item.seleccionada-mal .opcion-letra {
+    background: var(--rojo-error);
+    color: var(--blanco);
+  }
+
+  /* Explicación */
+  .explicacion-box {
+    background: var(--gris-fondo);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    border-left: 3px solid var(--azul-claro);
+  }
+
+  .explicacion-box h4 {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--azul-estado);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 7px;
+  }
+
+  .explicacion-box p {
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: var(--gris-texto);
+  }
+
+  .fundamento-box {
+    background: #fffbf0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--dorado);
+  }
+
+  .fundamento-box h4 {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #8a6500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .fundamento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+    margin-bottom: 8px;
+  }
+
+  .fundamento-item {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .fundamento-item strong {
+    color: #8a6500;
+    display: block;
+    font-size: 0.70rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 1px;
+  }
+
+  .fundamento-justif {
+    font-size: 0.80rem;
+    line-height: 1.55;
+    color: #6b5200;
+    border-top: 1px solid #e8d98a;
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+
+  .comp-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--azul-estado);
+    background: #e8effa;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Btn ver respuesta */
+  .btn-respuesta {
+    font-size: 0.80rem;
+    font-weight: 600;
+    color: var(--azul-claro);
+    background: none;
+    border: 1.5px solid var(--azul-claro);
+    border-radius: 6px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.18s;
+    margin-bottom: 14px;
+  }
+
+  .btn-respuesta:hover {
+    background: var(--azul-claro);
+    color: var(--blanco);
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    padding: 56px 32px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    border: 2px dashed var(--gris-borde);
+  }
+
+  .empty-icon {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .empty-state h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--azul-estado);
+    margin-bottom: 8px;
+  }
+
+  .empty-state p {
+    font-size: 0.86rem;
+    color: var(--gris-texto);
+    line-height: 1.6;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* Progress indicator */
+  .progress-bar-wrap {
+    background: var(--gris-fondo);
+    border-radius: 20px;
+    height: 6px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--azul-estado), var(--azul-claro));
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .main {
+      grid-template-columns: 1fr;
+    }
+    .panel-control {
+      position: static;
+    }
+  }
+
+  /* IDs display warning */
+  .id-info {
+    font-size: 0.74rem;
+    color: var(--gris-texto);
+    padding: 8px 12px;
+    background: var(--gris-fondo);
+    border-radius: 6px;
+    border: 1px solid var(--gris-borde);
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Tag pill */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .tag-pill {
+    font-size: 0.70rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: var(--gris-fondo);
+    color: var(--gris-texto);
+    border: 1px solid var(--gris-borde);
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-stripe"></div>
+  <div class="header-inner">
+    <div class="header-escudo">🏛️</div>
+    <div class="header-text">
+      <h1>Banco de Preguntas — Psicólogo Escolar</h1>
+      <p>Evaluación de Desempeño Docente · MINERD · República Dominicana</p>
+    </div>
+    <div class="header-badge">🔒 Uso Oficial</div>
+  </div>
+</header>
+
+<div class="main">
+  <!-- PANEL CONTROL -->
+  <aside class="panel-control">
+    <div class="panel-header">
+      <h2>⚙️ Configuración del Generador</h2>
+    </div>
+    <div class="panel-body">
+      <div class="field-group">
+        <label>📁 Área Temática</label>
+        <select id="categoria">
+          <option value="todas">Todas las áreas</option>
+          <option value="proteccion">Protección Infantil</option>
+          <option value="abuso_fisico">Abuso Físico</option>
+          <option value="abuso_sexual">Abuso Sexual</option>
+          <option value="negligencia">Negligencia</option>
+          <option value="violencia_intrafamiliar">Violencia Intrafamiliar</option>
+          <option value="acoso_escolar">Acoso Escolar / Bullying</option>
+          <option value="ciberacoso">Ciberacoso</option>
+          <option value="convivencia">Convivencia Escolar</option>
+          <option value="inclusion">Inclusión Educativa</option>
+          <option value="tdah">TDAH</option>
+          <option value="tea">TEA</option>
+          <option value="altas_capacidades">Altas Capacidades</option>
+          <option value="salud_mental">Salud Mental Escolar</option>
+          <option value="riesgo_suicida">Riesgo Suicida / Autolesiones</option>
+          <option value="crisis">Intervención en Crisis</option>
+          <option value="duelo">Duelo</option>
+          <option value="embarazo">Embarazo Adolescente</option>
+          <option value="sustancias">Consumo de Sustancias</option>
+          <option value="vocacional">Orientación Vocacional</option>
+          <option value="familias">Trabajo con Familias</option>
+          <option value="interdisciplinario">Trabajo Interdisciplinario</option>
+          <option value="permanencia">Permanencia Escolar</option>
+          <option value="etica">Ética Profesional</option>
+          <option value="gestion">Gestión Institucional</option>
+          <option value="evaluacion_psico">Evaluación Psicopedagógica</option>
+          <option value="derivacion">Derivación y Referencia</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>📊 Nivel de Dificultad</label>
+        <select id="dificultad">
+          <option value="Alta">Alta</option>
+          <option value="Media-Alta">Media-Alta</option>
+          <option value="Media">Media</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>🔢 Cantidad de Preguntas</label>
+        <input type="number" id="cantidad" value="5" min="1" max="20">
+        <div class="id-info">IDs comenzarán desde <strong>681</strong> (según parámetro del sistema)</div>
+      </div>
+
+      <div class="field-group">
+        <label>📝 Instrucción Adicional (opcional)</label>
+        <input type="text" id="instruccion_extra" placeholder="Ej: enfocarse en casos de secundaria">
+      </div>
+
+      <button class="btn-generar" id="btn-generar" onclick="generarPreguntas()">
+        <span id="btn-text">⚡ Generar Banco de Preguntas</span>
+      </button>
+
+      <button class="btn-exportar" id="btn-exportar" onclick="exportarJSON()" disabled>
+        📥 Exportar JSON Oficial
+      </button>
+    </div>
+
+    <div class="stats-bar" id="stats-bar" style="display:none">
+      <div class="stat-item">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Generadas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-areas">0</div>
+        <div class="stat-label">Áreas</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENT AREA -->
+  <main class="content-area" id="content-area">
+    <div class="empty-state">
+      <span class="empty-icon">📋</span>
+      <h3>Generador Oficial Listo</h3>
+      <p>Configure los parámetros y haga clic en <strong>Generar</strong> para construir preguntas situacionales basadas en la normativa MINERD vigente.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+let bancoActual = [];
+let idCounter = 681;
+
+const CATEGORIAS_LABELS = {
+  proteccion: "Protección Infantil",
+  abuso_fisico: "Abuso Físico",
+  abuso_sexual: "Abuso Sexual",
+  negligencia: "Negligencia",
+  violencia_intrafamiliar: "Violencia Intrafamiliar",
+  acoso_escolar: "Acoso Escolar",
+  ciberacoso: "Ciberacoso",
+  convivencia: "Convivencia Escolar",
+  inclusion: "Inclusión Educativa",
+  tdah: "TDAH",
+  tea: "TEA",
+  altas_capacidades: "Altas Capacidades",
+  salud_mental: "Salud Mental",
+  riesgo_suicida: "Riesgo Suicida",
+  crisis: "Intervención en Crisis",
+  duelo: "Duelo",
+  embarazo: "Embarazo Adolescente",
+  sustancias: "Consumo de Sustancias",
+  vocacional: "Orientación Vocacional",
+  familias: "Trabajo con Familias",
+  interdisciplinario: "Trabajo Interdisciplinario",
+  permanencia: "Permanencia Escolar",
+  etica: "Ética Profesional",
+  gestion: "Gestión Institucional",
+  evaluacion_psico: "Evaluación Psicopedagógica",
+  derivacion: "Derivación y Referencia",
+  todas: "Todas las áreas"
+};
+
+async function generarPreguntas() {
+  const categoria = document.getElementById('categoria').value;
+  const dificultad = document.getElementById('dificultad').value;
+  const cantidad = parseInt(document.getElementById('cantidad').value);
+  const extra = document.getElementById('instruccion_extra').value;
+
+  if (isNaN(cantidad) || cantidad < 1 || cantidad > 20) {
+    mostrarStatus('error', '⚠️ Ingrese una cantidad válida entre 1 y 20.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-generar');
+  btn.disabled = true;
+  document.getElementById('btn-text').textContent = 'Generando…';
+
+  mostrarStatus('loading', `Construyendo ${cantidad} pregunta(s) situacionales sobre <strong>${CATEGORIAS_LABELS[categoria] || categoria}</strong>… Esto puede tomar unos momentos.`, true);
+
+  const catLabel = categoria === 'todas' ? 'distribuidas entre todas las áreas del rol de Psicólogo Escolar' : `centradas en el área de: ${CATEGORIAS_LABELS[categoria]}`;
+  const extraNote = extra ? `\n- Instrucción adicional del evaluador: ${extra}` : '';
+
+  const prompt = `Eres el Comité Nacional de Elaboración de Pruebas del MINERD de la República Dominicana, integrado por especialistas de la Dirección de Orientación y Psicología, Técnicos de Evaluación de Desempeño, Psicólogos Escolares Expertos, Especialistas en Educación Inclusiva, y Expertos en Evaluación Basada en Competencias.
+
+FUENTES AUTORIZADAS exclusivas:
+- Manual Operativo de los Centros de Orientación y Psicología (2015)
+- Lineamientos del Proceso de Orientación y Psicología (2023-2024)
+- Ley 136-03 (Código para la Protección de NNA)
+- Ordenanza 05-2024 sobre Educación Inclusiva
+- Guía de Ruta Crítica para Prevención y Atención de la Violencia
+- Estatuto del Docente Dominicano
+- Normas del Sistema Educativo Dominicano para la Convivencia Armoniosa
+- Programa Nacional de Inducción a Orientadores Escolares (PNI-ORE)
+- Manual de los Servicios de Orientación y Psicología en los Centros Educativos
+- Protocolos oficiales vigentes del MINERD
+
+TAREA: Genera exactamente ${cantidad} pregunta(s) situacionales ${catLabel}. Nivel de dificultad: ${dificultad}. Los IDs deben comenzar en ${idCounter}.${extraNote}
+
+REQUISITOS CRÍTICOS:
+1. Cada pregunta DEBE ser situacional, basada en un caso real plausible en un centro educativo dominicano.
+2. Las 4 opciones deben ser técnicamente plausibles; ninguna evidentemente absurda.
+3. La respuesta correcta es la MEJOR actuación profesional según la normativa dominicana.
+4. Incluir trazabilidad completa: documento, capítulo, apartado, justificación específica.
+5. NO inventar, NO inferir, NO usar fuentes extranjeras.
+6. NO evaluar memorización ni definiciones.
+7. Si un tema no puede respaldarse con fuentes autorizadas, omitir y generar otro.
+
+FORMATO DE RESPUESTA: Responde ÚNICAMENTE con un JSON válido, sin markdown, sin backticks, sin texto previo ni posterior. El JSON debe ser un array con este esquema exacto:
+[
+  {
+    "id": ${idCounter},
+    "categoria": "nombre del área",
+    "pregunta": "texto del caso y pregunta",
+    "opciones": ["A. ...", "B. ...", "C. ...", "D. ..."],
+    "respuestaCorrecta": 0,
+    "explicacion": "explicación técnica de por qué es la respuesta correcta",
+    "fundamentoNormativo": {
+      "documento": "nombre exacto del documento",
+      "capitulo": "capítulo o sección",
+      "apartado": "apartado específico",
+      "justificacion": "justificación normativa específica"
+    },
+    "nivelDificultad": "${dificultad}",
+    "competenciaEvaluada": "competencia específica evaluada"
+  }
+]`;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 8000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err?.error?.message || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const rawText = data.content
+      .filter(b => b.type === "text")
+      .map(b => b.text)
+      .join("");
+
+    let jsonText = rawText.trim();
+    // Strip markdown fences if present
+    jsonText = jsonText.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+
+    let preguntas;
+    try {
+      preguntas = JSON.parse(jsonText);
+    } catch (parseErr) {
+      // Try extracting JSON array
+      const match = jsonText.match(/\[[\s\S]*\]/);
+      if (match) {
+        preguntas = JSON.parse(match[0]);
+      } else {
+        throw new Error("No se pudo parsear la respuesta del modelo. Intente nuevamente.");
+      }
+    }
+
+    if (!Array.isArray(preguntas) || preguntas.length === 0) {
+      throw new Error("El modelo no devolvió preguntas válidas.");
+    }
+
+    // Update idCounter
+    idCounter += preguntas.length;
+
+    bancoActual = [...bancoActual, ...preguntas];
+
+    mostrarStatus('success', `✅ ${preguntas.length} pregunta(s) generadas correctamente con trazabilidad normativa.`);
+    renderPreguntas(preguntas, true);
+
+    // Update stats
+    const areas = new Set(bancoActual.map(p => p.categoria)).size;
+    document.getElementById('stat-total').textContent = bancoActual.length;
+    document.getElementById('stat-areas').textContent = areas;
+    document.getElementById('stats-bar').style.display = 'grid';
+    document.getElementById('btn-exportar').disabled = false;
+
+  } catch (err) {
+    mostrarStatus('error', `❌ Error: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    document.getElementById('btn-text').textContent = '⚡ Generar Banco de Preguntas';
+  }
+}
+
+function mostrarStatus(tipo, mensaje, progreso = false) {
+  const area = document.getElementById('content-area');
+
+  // Keep existing cards, only replace/add status at top
+  const existingStatus = area.querySelector('.status-msg');
+  const statusHtml = `
+    <div class="status-msg ${tipo}" id="status-top">
+      ${tipo === 'loading' ? '<div class="spinner"></div>' : (tipo === 'success' ? '✅' : '❌')}
+      <div>
+        <div>${mensaje}</div>
+        ${progreso ? '<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:60%"></div></div>' : ''}
+      </div>
+    </div>`;
+
+  if (existingStatus) {
+    existingStatus.outerHTML = statusHtml;
+  } else {
+    // If empty state, replace it; otherwise prepend
+    const emptyState = area.querySelector('.empty-state');
+    if (emptyState) {
+      area.innerHTML = statusHtml;
+    } else {
+      area.insertAdjacentHTML('afterbegin', statusHtml);
+    }
+  }
+}
+
+function renderPreguntas(preguntas, append = false) {
+  const area = document.getElementById('content-area');
+
+  preguntas.forEach(p => {
+    const letras = ['A', 'B', 'C', 'D'];
+    const opcionesHtml = p.opciones.map((op, i) => `
+      <div class="opcion-item" id="op-${p.id}-${i}" onclick="seleccionarOpcion(${p.id}, ${i}, ${p.respuestaCorrecta})">
+        <div class="opcion-letra">${letras[i]}</div>
+        <div>${op.replace(/^[A-D]\.\s*/, '')}</div>
+      </div>
+    `).join('');
+
+    const cardHtml = `
+      <div class="pregunta-card" id="card-${p.id}">
+        <div class="card-head">
+          <span class="card-id">ID #${p.id}</span>
+          <span class="card-cat">📂 ${p.categoria}</span>
+          <span class="card-dif">🎯 ${p.nivelDificultad}</span>
+        </div>
+        <div class="card-body">
+          <p class="pregunta-texto">${p.pregunta}</p>
+          <div class="opciones-lista" id="opciones-${p.id}">
+            ${opcionesHtml}
+          </div>
+          <button class="btn-respuesta" onclick="mostrarRespuesta(${p.id}, ${p.respuestaCorrecta}, event)">
+            👁 Ver respuesta y fundamento
+          </button>
+          <div id="detalle-${p.id}" style="display:none">
+            <div class="explicacion-box">
+              <h4>📌 Explicación Técnica</h4>
+              <p>${p.explicacion}</p>
+            </div>
+            <div class="fundamento-box">
+              <h4>📜 Fundamento Normativo</h4>
+              <div class="fundamento-grid">
+                <div class="fundamento-item">
+                  <strong>Documento</strong>
+                  ${p.fundamentoNormativo?.documento || '—'}
+                </div>
+                <div class="fundamento-item">
+                  <strong>Capítulo / Sección</strong>
+                  ${p.fundamentoNormativo?.capitulo || '—'}
+                </div>
+                <div class="fundamento-item">
+                  <strong>Apartado</strong>
+                  ${p.fundamentoNormativo?.apartado || '—'}
+                </div>
+              </div>
+              <div class="fundamento-justif">
+                <strong>Justificación:</strong> ${p.fundamentoNormativo?.justificacion || '—'}
+              </div>
+            </div>
+            <div class="comp-tag">🧠 ${p.competenciaEvaluada}</div>
+          </div>
+        </div>
+      </div>`;
+
+    area.insertAdjacentHTML('beforeend', cardHtml);
+  });
+}
+
+function seleccionarOpcion(pregId, opcionIdx, correctaIdx) {
+  const contenedor = document.getElementById(`opciones-${pregId}`);
+  const items = contenedor.querySelectorAll('.opcion-item');
+
+  items.forEach((item, i) => {
+    item.classList.remove('seleccionada-ok', 'seleccionada-mal', 'correcta');
+    item.onclick = null; // disable further clicks
+  });
+
+  if (opcionIdx === correctaIdx) {
+    items[opcionIdx].classList.add('seleccionada-ok', 'correcta');
+  } else {
+    items[opcionIdx].classList.add('seleccionada-mal');
+    items[correctaIdx].classList.add('correcta');
+  }
+
+  // Auto-show explanation
+  document.getElementById(`detalle-${pregId}`).style.display = 'block';
+}
+
+function mostrarRespuesta(pregId, correctaIdx, event) {
+  const btn = event.target;
+  const contenedor = document.getElementById(`opciones-${pregId}`);
+  const detalle = document.getElementById(`detalle-${pregId}`);
+  const items = contenedor.querySelectorAll('.opcion-item');
+
+  items[correctaIdx].classList.add('correcta');
+
+  if (detalle.style.display === 'none') {
+    detalle.style.display = 'block';
+    btn.textContent = '🙈 Ocultar fundamento';
+  } else {
+    detalle.style.display = 'none';
+    btn.textContent = '👁 Ver respuesta y fundamento';
+  }
+}
+
+function exportarJSON() {
+  if (bancoActual.length === 0) return;
+
+  const output = `const bancoPreguntas = ${JSON.stringify(bancoActual, null, 2)};`;
+  const blob = new Blob([output], { type: 'application/javascript' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `banco_preguntas_psicologo_escolar_${Date.now()}.js`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
